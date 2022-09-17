@@ -13,10 +13,17 @@ List<DrinkDetails> parseDrinks(String responseBody) {
   return parsed.map<DrinkDetails>((json) => DrinkDetails.fromJson(json)).toList();
 }
 
-Future<List<DrinkDetails>> fetchDrinkDetails() async {
-  final apiURI = Uri.parse('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic');
-  final response = await http.get(apiURI);
-  return parseDrinks(response.body);
+Future<List<DrinkDetails>> fetchNADrinkDetails() async {
+  final nonAlcoholicURI = Uri.parse('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic');
+  final nonAlcoholicResponse = await http.get(nonAlcoholicURI);
+
+  return parseDrinks(nonAlcoholicResponse.body);
+}
+
+Future<List<DrinkDetails>> fetchADrinkDetails() async {
+  final alcoholicURI = Uri.parse('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic');
+  final alcoholicResponse = await http.get(alcoholicURI);
+  return parseDrinks(alcoholicResponse.body);
 }
 
 class DrinkDetails {
