@@ -1,27 +1,33 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-/*
-  var api1 = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail";
-  var api2 = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic";
-  var api3 = "www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic";
-*/
+class Apis {
+  static const api1 =
+      "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail";
+  static const api2 =
+      "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic";
+  static const api3 = "www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic";
+}
 
 List<DrinkDetails> parseDrinks(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<String, dynamic>()['drinks'];
 
-  return parsed.map<DrinkDetails>((json) => DrinkDetails.fromJson(json)).toList();
+  return parsed
+      .map<DrinkDetails>((json) => DrinkDetails.fromJson(json))
+      .toList();
 }
 
 Future<List<DrinkDetails>> fetchNADrinkDetails() async {
-  final nonAlcoholicURI = Uri.parse('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic');
+  final nonAlcoholicURI = Uri.parse(
+      'https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic');
   final nonAlcoholicResponse = await http.get(nonAlcoholicURI);
 
   return parseDrinks(nonAlcoholicResponse.body);
 }
 
 Future<List<DrinkDetails>> fetchADrinkDetails() async {
-  final alcoholicURI = Uri.parse('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic');
+  final alcoholicURI = Uri.parse(
+      'https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic');
   final alcoholicResponse = await http.get(alcoholicURI);
   return parseDrinks(alcoholicResponse.body);
 }

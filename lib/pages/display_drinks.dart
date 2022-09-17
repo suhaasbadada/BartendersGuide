@@ -72,7 +72,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Drinks 🍹", style: TextStyle(color: Colors.white)),
+          title: const Center(
+              child: Text("Drinks 🍹", style: TextStyle(color: Colors.white))),
           backgroundColor: Colors.black,
         ),
         body: Center(
@@ -80,8 +81,8 @@ class _HomePageState extends State<HomePage> {
                 ? _widgetOptions.elementAt(_selectedIndex)
                 : (const CircularProgressIndicator())),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.black,
           type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.black,
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           selectedItemColor: Colors.greenAccent,

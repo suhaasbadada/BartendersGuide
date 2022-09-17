@@ -33,7 +33,7 @@ class _DrinkWidgetState extends State<DrinkWidget> {
             color: (_checked == true) ? Colors.green : Colors.grey,
           ),
           onPressed: () {
-            _checked = true;
+            _checked = !_checked;
             setState(() {});
           },
         ),
